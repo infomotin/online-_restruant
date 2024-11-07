@@ -29,7 +29,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'login' => ['required', 'string'],
+            'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
         ];
     }
@@ -42,29 +42,29 @@ class LoginRequest extends FormRequest
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
-
-        $userData = User::where('email', $this->login)
-                            ->orWhere('username', $this->login)
-                            ->orWhere('phone', $this->login)
-                            ->first();
-        dd($userData);
-        if(! $userData || !Hash::check($this->password, $userData->password)) {
-            RateLimiter::hit($this->throttleKey());
-
-            throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
-            ]);
-        }
-
-
-
-        // if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        // // dd($this);
+        // $userData = User::where('email', $this->login)
+        //                     ->orWhere('username', $this->login)
+        //                     ->orWhere('mobile', $this->login)
+        //                     ->first();
+        // // dd($userData);
+        // if(! $userData || !Hash::check($this->password, $userData->password)) {
         //     RateLimiter::hit($this->throttleKey());
 
         //     throw ValidationException::withMessages([
         //         'email' => trans('auth.failed'),
         //     ]);
         // }
+
+
+
+        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'email' => trans('auth.failed'),
+            ]);
+        }
 
         RateLimiter::clear($this->throttleKey());
     }
