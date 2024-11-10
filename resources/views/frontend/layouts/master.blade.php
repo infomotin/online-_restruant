@@ -18,7 +18,7 @@
 
     <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/responsive.css')}}">
-    <!-- <link rel="stylesheet" href="{{asset('frontend/css/rtl.css')}}"> -->
+    <link rel="stylesheet" href="{{asset('frontend/css/toastr.min.css')}}">
 </head>
 
 <body>
@@ -71,7 +71,22 @@
 
     <!--main/custom js-->
     <script src="{{asset('frontend/js/main.js')}}"></script>
+    <script src="{{asset('frontend/js/toastr.min.js')}}"></script>
+        <script>
+            // function imp 
+            toastr.options.closeMethod = 'fadeOut';
+            toastr.options.closeDuration = 400;
+            toastr.options.closeEasing = 'swing';
+            toastr.options.preventDuplicates = true;
+            toastr.options.timeOut = 5; // How long the toast will display without user interaction
+            toastr.options.extendedTimeOut = 5; // How long the toast will display after a user hovers over it
 
+            @if($errors->any())
+                @foreach($errors->all() as $error)
+                    toastr.error('{{$error}}');
+                @endforeach
+            @endif
+        </script>
 </body>
 
 </html>

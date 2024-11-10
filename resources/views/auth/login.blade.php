@@ -26,7 +26,7 @@
     <!--=========================
         SIGNIN START
     ==========================-->
-    <section class="fp__signin" style="background: url(images/login_bg.jpg);">
+    <section class="fp__signin" style="background: url({{asset('frontend/images/login_bg.jpg')}});">
         <div class="fp__signin_overlay pt_125 xs_pt_95 pb_100 xs_pb_70">
             <div class="container">
                 <div class="row wow fadeInUp" data-wow-duration="1s">
@@ -40,7 +40,7 @@
                                     <div class="col-xl-12">
                                         <div class="fp__login_imput">
                                             <label>email</label>
-                                            <input type="email" name="email" placeholder="Email" required>
+                                            <input type="email" name="email" placeholder="Email" required value="{{ old('email') }}">
                                         </div>
                                     </div>
                                     <div class="col-xl-12">
@@ -52,13 +52,13 @@
                                     <div class="col-xl-12">
                                         <div class="fp__login_imput fp__login_check_area">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="flexCheckDefault" name="remember">
+                                                <input class="form-check-input" type="checkbox"
+                                                    id="flexCheckDefault" name="remember" >
                                                 <label class="form-check-label" for="flexCheckDefault">
                                                     Remeber Me
                                                 </label>
                                             </div>
-                                            <a href="forgot_password.html">Forgot Password ?</a>
+                                            <a href="{{route('password.request')}}">Forgot Password ?</a>
                                         </div>
                                     </div>
                                     <div class="col-xl-12">
