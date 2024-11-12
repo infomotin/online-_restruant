@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Admin\AdminAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,9 @@ use App\Http\Controllers\Frontend\FrontendController;
 //     return view('frontend.home.Home');
 // });
 
+// adminAuthController 
+Route::get('admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
@@ -34,4 +38,3 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 // require __DIR__.'/admin.php';
-
