@@ -194,11 +194,11 @@
         </div>
       </li>
       <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-        <img alt="image" src="assets/img/avatar/avatar-1.png" class="mr-1 rounded-circle">
-        <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
+        <img alt="image" src="{{asset(Auth::user()->avatar)}}" class="mr-1 rounded-circle">
+        <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->name }}</div></a>
         <div class="dropdown-menu dropdown-menu-right">
-          <div class="dropdown-title">Logged in 5 min ago</div>
-          <a href="features-profile.html" class="dropdown-item has-icon">
+          <div class="dropdown-title">{{Carbon\Carbon::now()->isoFormat('dddd, D MMMM Y')}}</div>
+          <a href="{{route('admin.profile')}}" class="dropdown-item has-icon">
             <i class="far fa-user"></i> Profile
           </a>
           <a href="features-activities.html" class="dropdown-item has-icon">
