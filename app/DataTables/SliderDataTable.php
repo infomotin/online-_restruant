@@ -22,7 +22,24 @@ class SliderDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'slider.action')
+            
+            ->addColumn('action', function ($query) {
+                $edit = "<a href='" . route('admin.slider.edit', $query->id) . "' class='ml-2 btn btn-primary btn-sm'><i class='fa fa-edit'></i></a>";
+                $delete = "<a href='" . route('admin.slider.destroy', $query->id) . "' class='ml-2 btn btn-danger btn-sm'><i class='fa fa-trash'></i></a>";
+                
+                return $edit . $delete;
+            })
+            ->addColumn('status', function ($query) {
+                if($query->status === 1){
+                    return '<span class="badge badge-primary">Active</span>';
+                }else {
+                    return '<span class="badge badge-danger">InActive</span>';
+                }
+            })
+            ->addColumn('image', function ($query) {
+                return '<img width="100px" src="'.asset($query->image).'">';
+            })
+            ->rawColumns(['action', 'status','image'])
             ->setRowId('id');
     }
 
@@ -40,20 +57,20 @@ class SliderDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('slider-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('slider-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -75,13 +92,11 @@ class SliderDataTable extends DataTable
         //     $table->dateTime('end_date')->nullable();
         //     $table->boolean('status')->default(0);
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+            
+            
             Column::make('id'),
             Column::make('offer'),
+            Column::make('image'),
             Column::make('title'),
             Column::make('sub_title'),
             Column::make('short_description'),
@@ -92,8 +107,13 @@ class SliderDataTable extends DataTable
             Column::make('alt_text'),
             Column::make('start_date'),
             Column::make('end_date'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('status'),
+            Column::computed('action')
+                    ->exportable(false)
+                    ->printable(false)
+                    ->width(180)
+                    ->addClass('text-center'),
+            
         ];
     }
 

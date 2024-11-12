@@ -28,6 +28,7 @@ return new class extends Migration
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->boolean('status')->default(0);
+            $table->auditable();
 
             $table->timestamps();
         });

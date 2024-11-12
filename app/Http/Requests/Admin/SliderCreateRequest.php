@@ -39,14 +39,14 @@ class SliderCreateRequest extends FormRequest
             'offer' => ['required', 'string'],
             'title' => ['required', 'string'],
             'sub_title' => ['required', 'string'],
-            'short_description' => ['required', 'string'],
-            'long_description' => ['required', 'string'],
-            'button_link' => ['required', 'string'],
-            'button_text' => ['required', 'string'],
-            'aria_label' => ['required', 'string'],
-            'alt_text' => ['required', 'string'],
-            'start_date' => ['required', 'date'],
-            'end_date' => ['required', 'date'],
+            // 'short_description' => ['required', 'string'],
+            // 'long_description' => ['required', 'string'],
+            // 'button_link' => ['required', 'string'],
+            // 'button_text' => ['required', 'string'],
+            // 'aria_label' => ['required', 'string'],
+            // 'alt_text' => ['required', 'string'],
+            // 'start_date' => ['required', 'date'],
+            // 'end_date' => ['required', 'date'],
         ];
     }
 }
