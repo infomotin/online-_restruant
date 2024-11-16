@@ -20,6 +20,7 @@
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/bootstrap-iconpicker.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/css/components.css') }}">
     <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
     <!-- Start GA -->
@@ -63,6 +64,7 @@
     <script src="{{ asset('admin/assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ asset('admin/assets/modules/moment.min.js') }}"></script>
     <script src="{{ asset('admin/assets/js/stisla.js') }}"></script>
+    <script src="{{ asset('admin/assets/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
     {{-- // --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>

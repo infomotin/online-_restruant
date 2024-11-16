@@ -4,14 +4,14 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class WhyChooseUsRequest extends FormRequest
+class WhyChooseUsCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;    
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class WhyChooseUsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'icon' => ['required', 'string'],
+            'title' => ['required', 'string'],
+            'short_description' => ['required', 'string'],
         ];
     }
 }
