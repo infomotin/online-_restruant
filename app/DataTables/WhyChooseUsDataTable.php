@@ -23,6 +23,14 @@ class WhyChooseUsDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'whychooseus.action')
+            ->addColumn('status', function ($query) {
+                if ($query->status === 1) {
+                    return '<span class="btn btn-primary">Active</span>';
+                } else {
+                    return '<span class="btn btn-danger">InActive</span>';
+                }
+            })
+            ->rawColumns(['status'])
             ->setRowId('id');
     }
 
@@ -40,20 +48,20 @@ class WhyChooseUsDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('whychooseus-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('whychooseus-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -61,16 +69,24 @@ class WhyChooseUsDataTable extends DataTable
      */
     public function getColumns(): array
     {
+        // 'icon' => $request->icon,
+        // 'title' => $request->title,
+        // 'short_description' => $request->short_description,
+        // 'status' => 1,
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('icon'),
+            Column::make('title'),
+            Column::make('short_description'),
+            Column::make('status'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(60)
+                ->addClass('text-center'),
+
+
         ];
     }
 

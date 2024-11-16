@@ -19,7 +19,7 @@ class SliderDataTable extends DataTable
      *
      * @param QueryBuilder $query Results from query() method.
      */
-    public function dataTable(QueryBuilder $query): EloquentDataTable
+    public function dataTable(QueryBuilder $query): EloquentDataTable 
     {
         return (new EloquentDataTable($query))
             
