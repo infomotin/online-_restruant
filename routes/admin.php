@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\WhyChooseController;
 
 
 
@@ -16,4 +17,12 @@ Route::group(['prefix' => 'admin','as' => 'admin.'], function () {
         /** End Profile **/
         /**Sliders **/
        Route::resource('slider', SliderController::class);
+        /** End Sliders **/
+        /** Why Choose **/
+
+
+        //if you want to more routes you can add here but must be before Route::resource
+        Route::put('why-choose-us-title-update/',[WhyChooseController::class, 'titleUpdate'])->name('admin.why-choose-us-title.update');
+        Route::resource('why-choose-us', WhyChooseController::class);
+        /** End Why Choose **/
 });                      
