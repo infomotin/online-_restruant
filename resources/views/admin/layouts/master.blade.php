@@ -84,11 +84,12 @@
     <script src="{{ asset('admin/assets/js/custom.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+            // $.ajaxSetup({
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //     }
+            // });
+            // console.log($.ajaxSetup().headers);
             $('body').on('click', '.delete-item', function(e) {
                 e.preventDefault();
                 let url = $(this).attr('href');
@@ -107,19 +108,24 @@
                         $.ajax({
                             url: $(this).attr('href'),
                             method: "DELETE",
+                            data:{
+                                _token: $('meta[name="csrf-token"]').attr('content')
+                            },
                            
                             success: function(response) {
-                                console.log(response);
+                                if (response.status == 'success') {
+                                    $('#slider-table').DataTable().draw();
+                                    // toastr.success(response.message);
+                                    
+                                }else if(response.status == 'error'){
+                                    toastr.error(response.message);
+                                }
                             },
                             error: function(error) {
                                 console.log(error);
                             }
                         })
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
-                        });
+                        
                     }
                 });
             });

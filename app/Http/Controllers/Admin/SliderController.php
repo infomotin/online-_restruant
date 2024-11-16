@@ -95,7 +95,25 @@ class SliderController extends Controller
      */
     public function update(SliderUpdate $request, string $id)
     {
-        dd($request->all());
+        $slider = Slider::find($id);
+        $imagePath = $this->uploadImage($request, 'image', $slider->image);
+        $slider->image = $imagePath;
+        $slider->offer = $request->offer;
+        $slider->title = $request->title;
+        $slider->sub_title = $request->sub_title;
+        $slider->short_description = $request->short_description;
+        $slider->long_description = $request->long_description;
+        $slider->button_link = $request->button_link;
+        $slider->button_text = $request->button_text;
+        $slider->aria_label = $request->aria_label;
+        $slider->alt_text = $request->alt_text;
+        $slider->start_date = $request->start_date;
+        $slider->end_date = $request->end_date;
+        $slider->status = 0;
+        $slider->save();
+
+        toastr()->success('Updated Successfully');
+        return to_route('admin.slider.index');
     }
 
     /**
@@ -104,8 +122,14 @@ class SliderController extends Controller
     public function destroy(string $id)
     {
         // dd($id);
-        $slider = Slider::findOrFail($id);
-        $slider->delete();
-        return response()->json(['message' => 'Deleted Successfully']);
+        try{
+            $slider = Slider::findOrFail($id);
+            $this->deleteImage($slider->image);
+            $slider->delete();
+            return response()->json(['status' => 'success','message' => 'Deleted Successfully']);
+        }catch(\Exception $e){
+            return response()->json(['status' => 'error','message' => $e->getMessage()]);
+        }
+       
     }
 }
