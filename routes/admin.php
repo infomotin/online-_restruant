@@ -16,4 +16,4 @@ Route::group(['prefix' => 'admin','as' => 'admin.'], function () {
         /** End Profile **/
         /**Sliders **/
        Route::resource('slider', SliderController::class);
-});
+});                      

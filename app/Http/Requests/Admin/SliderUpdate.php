@@ -22,10 +22,10 @@ class SliderUpdate extends FormRequest
     public function rules(): array
     {
         return [
-           'image' => ['required', 'image'],
-            'offer' => ['required', 'string'],
-            'title' => ['required', 'string'],
-            'sub_title' => ['required', 'string'],
+            // 'image' => ['required', 'image'],
+            // 'offer' => ['required', 'string'],
+            // 'title' => ['required', 'string'],
+            // 'sub_title' => ['required', 'string'],
         ];
     }
 }

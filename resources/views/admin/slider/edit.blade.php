@@ -1,5 +1,8 @@
 @extends('admin.layouts.master')
 @section('content')
+{{-- jquary cdn  --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <section class="section">
         <div class="section-header">
             <h1>Slider</h1>
@@ -69,10 +72,40 @@
                             <option @selected($slider->status === 1) value="1">Active</option>
                             <option @selected($slider->status === 0) value="0">Inactive</option>
                         </select>
-                    </div>
+                    </div> 
                     <button class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
     </section>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#image-upload').change(function() {
+                let reader = new FileReader();
+                console.log(reader);
+                reader.onload = (e) => {
+                    $('#image-preview').css('background-image', `url(${e.target.result})`);
+                    $('#image-preview').hide();
+                    $('#image-preview').fadeIn(650);
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+        });
+    </script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#short_description' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#long_description' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+@endpush

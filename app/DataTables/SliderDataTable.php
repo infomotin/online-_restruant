@@ -25,19 +25,19 @@ class SliderDataTable extends DataTable
             
             ->addColumn('action', function ($query) {
                 $edit = "<a href='" . route('admin.slider.edit', $query->id) . "' class='ml-2 btn btn-primary btn-sm'><i class='fa fa-edit'></i></a>";
-                $delete = "<a href='" . route('admin.slider.destroy', $query->id) . "' class='ml-2 btn btn-danger btn-sm'><i class='fa fa-trash'></i></a>";
+                $delete = "<a href='" . route('admin.slider.destroy', $query->id) . "' class='ml-2 btn btn-danger btn-sm delete-item'><i class='fa fa-trash'></i></a>";
                 
                 return $edit . $delete;
             })
             ->addColumn('status', function ($query) {
                 if($query->status === 1){
-                    return '<span class="badge badge-primary">Active</span>';
+                    return '<span class="btn btn-primary">Active</span>';
                 }else {
-                    return '<span class="badge badge-danger">InActive</span>';
+                    return '<span class="btn btn-danger">InActive</span>';
                 }
             })
             ->addColumn('image', function ($query) {
-                return '<img width="100px" src="'.asset($query->image).'">';
+                return '<img width="50px" src="'.asset($query->image).'">';
             })
             ->rawColumns(['action', 'status','image'])
             ->setRowId('id');
@@ -100,7 +100,7 @@ class SliderDataTable extends DataTable
             Column::make('title'),
             Column::make('sub_title'),
             Column::make('short_description'),
-            Column::make('long_description'),
+            
             Column::make('button_link'),
             Column::make('button_text'),
             Column::make('aria_label'),
@@ -111,7 +111,7 @@ class SliderDataTable extends DataTable
             Column::computed('action')
                     ->exportable(false)
                     ->printable(false)
-                    ->width(180)
+                    ->width(120)
                     ->addClass('text-center'),
             
         ];
