@@ -6,6 +6,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Admin\Slider;
 use App\Models\Admin\WhyChooseUs;
+use App\Models\Admin\Category;
+use App\Models\Admin\Product;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,7 +25,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(WhyChooseUsTitleSeeder::class);
         // Slider::factory(20)->create();
         // WhyChooseUs::factory(20)->create();
-        $this->call(CategorySeeder::class);
+        // $this->call(CategorySeeder::class);
+        Product::factory(20000)->create();
 
     }
 }

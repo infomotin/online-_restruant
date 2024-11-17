@@ -26,6 +26,9 @@
                 <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Manage Restaurant</span></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ route('admin.category.index') }}">Product Category </a></li>
+                    <li><a href="{{ route('admin.product.index') }}">Product </a></li>
+                    <li><a href="{{ route('admin.product-gallery.index') }}">Product Gallery </a></li>
+                    
 
                 </ul>
             </li>

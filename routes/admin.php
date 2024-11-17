@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\WhyChooseController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductGalleryController;
 
 
 
@@ -26,4 +28,11 @@ Route::group(['prefix' => 'admin','as' => 'admin.'], function () {
         /** End Why Choose */
         // category 
         Route::resource('category', CategoryController::class);
+        // end category
+        // product 
+        Route::resource('product', ProductController::class);
+        // end product
+         // product 
+         Route::resource('product-gallery', ProductGalleryController::class);
+         // end product
 });                      
