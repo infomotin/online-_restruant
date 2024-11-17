@@ -21,10 +21,11 @@
             <li><a class="nav-link" href="{{route('admin.why-choose-us.index')}}"><i class="far fa-square"></i> <span>Why Choose Us</span></a></li>
 
             <li class="menu-header">Pages</li>
+
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Auth</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Manage Restaurant</span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="auth-forgot-password.html">Forgot Password</a></li>
+                    <li><a href="{{ route('admin.category.index') }}">Product Category </a></li>
 
                 </ul>
             </li>
