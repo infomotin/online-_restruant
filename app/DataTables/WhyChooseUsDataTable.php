@@ -22,7 +22,15 @@ class WhyChooseUsDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'whychooseus.action')
+            ->addColumn('action', function ($query) {
+                $edit = "<a href='" . route('admin.why-choose-us.edit', $query->id) . "' class='ml-2 btn btn-primary btn-sm'><i class='fa fa-edit'></i></a>";
+                $delete = "<a href='" . route('admin.why-choose-us.destroy', $query->id) . "' class='ml-2 btn btn-danger btn-sm delete-item'><i class='fa fa-trash'></i></a>";
+                
+                return $edit . $delete;
+            })
+            ->addColumn('Icone_Show',function($query){
+                return "<i style='font-size:50px' class='".$query->icon."'></i>";
+            })
             ->addColumn('status', function ($query) {
                 if ($query->status === 1) {
                     return '<span class="btn btn-primary">Active</span>';
@@ -30,7 +38,7 @@ class WhyChooseUsDataTable extends DataTable
                     return '<span class="btn btn-danger">InActive</span>';
                 }
             })
-            ->rawColumns(['status'])
+            ->rawColumns(['status','Icone_Show','action'])
             ->setRowId('id');
     }
 
@@ -52,7 +60,7 @@ class WhyChooseUsDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
-            ->orderBy(1)
+            ->orderBy(0,'asc')
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),
@@ -75,16 +83,17 @@ class WhyChooseUsDataTable extends DataTable
         // 'status' => 1,
         return [
 
-            Column::make('id'),
-            Column::make('icon'),
-            Column::make('title'),
-            Column::make('short_description'),
-            Column::make('status'),
+            Column::make('id')->width(20),
+            Column::make('icon')->width(20),
+            Column::make('Icone_Show')->width(20),
+            Column::make('title')->width(120),
+            Column::make('short_description')->width(120),
+            Column::make('status')->width(80),
             Column::computed('action')
-                ->exportable(false)
+                ->exportable(true)
                 ->printable(false)
-                ->width(60)
-                ->addClass('text-center'),
+                ->width(120)
+                ->addClass('form-group'),
 
 
         ];

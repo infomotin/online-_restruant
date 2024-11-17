@@ -115,6 +115,7 @@
                             },
                            
                             success: function(response) {
+                                window.location.reload();
                                 if (response.status == 'success') {
                                     $('#slider-table').DataTable().draw();
                                     // toastr.success(response.message);

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\DataTables\WhyChooseUsDataTable;
 use App\Models\Admin\WhyChooseUs;
 use App\Http\Requests\Admin\WhyChooseUsCreateRequest;
+use App\Http\Requests\Admin\WhyChooseUsUpdate;
 use App\Models\Admin\SectionTitle;
 use Illuminate\View\View;
 
@@ -85,15 +86,22 @@ class WhyChooseController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = WhyChooseUs::findOrFail($id);
+        return view('admin.whychooseus.edit',compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(WhyChooseUsUpdate $request, string $id)
     {
-        //
+        $whyChooseUs = WhyChooseUs::findOrFail($id);
+        $whyChooseUs->icon = $request->icon;
+        $whyChooseUs->title = $request->title;
+        $whyChooseUs->short_description = $request->short_description;
+        $whyChooseUs->status = $request->status;
+        $whyChooseUs->save();
+        return to_route('admin.why-choose-us.index')->with('success', 'Updated Successfully');
     }
 
     /**
@@ -101,6 +109,13 @@ class WhyChooseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try{
+            $whyChooseUs = WhyChooseUs::findOrFail($id);
+            $whyChooseUs->delete();
+            return response()->json(['success' => 'Deleted Successfully']);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Something went wrong']);
+        }
+       
     }
 }
