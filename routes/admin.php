@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\WhyChooseController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
+use App\Http\Controllers\Admin\ProductSizeController;
+use App\Http\Controllers\Admin\ProductOptionController;
+
 
 
 
@@ -33,6 +36,15 @@ Route::group(['prefix' => 'admin','as' => 'admin.'], function () {
         Route::resource('product', ProductController::class);
         // end product
          // product 
+         Route::get('product-gallery/{id}', [ProductGalleryController::class, 'showProduct'])->name('product-photog-allery.index');
          Route::resource('product-gallery', ProductGalleryController::class);
          // end product
+        //  product size 
+        Route::get('product-size/{id}', [ProductSizeController::class, 'showProduct'])->name('product-size.adding');
+        Route::resource('product-size', ProductSizeController::class);
+        // end product size
+
+        // productoption 
+        Route::get('product-option/{id}', [ProductOptionController::class, 'index'])->name('product-option.adding');
+        Route::resource('product-option', ProductOptionController::class);
 });                      

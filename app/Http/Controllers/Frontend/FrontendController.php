@@ -10,6 +10,7 @@ use App\Models\Admin\SectionTitle;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use App\Models\Admin\WhyChooseUs;
+use App\Models\Admin\Category;
 
 class FrontendController extends Controller
 {
@@ -18,7 +19,8 @@ class FrontendController extends Controller
         $slider = Slider::where('status', 1)->get();
         $sectionTitle = $this->getSectionTitle();
         $whyChoose = WhyChooseUs::where('status', 1)->orderBy('id', 'desc')->limit(3)->get();
-        return view('frontend.home.index', compact('slider', 'sectionTitle','whyChoose'));
+        $categorys = Category::where('status', 1)->get();
+        return view('frontend.home.index', compact('slider', 'sectionTitle','whyChoose','categorys'));
     }
     //getSectionTitle function to get section title from database
     public function getSectionTitle(){

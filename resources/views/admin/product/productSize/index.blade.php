@@ -11,8 +11,8 @@
     </style>
     <section class="section">
         <div class="section-header">
-            <h4>Product Show Image</h4>
-            
+            <h4>Product Name:({{ $data->name }})</h4>
+
         </div>
 
     </section>
@@ -20,36 +20,44 @@
     <section class="section">
         <div class="card card-primary">
             <div class="card-header">
-                <h4>Product Image </h4>
-                
+                <h4>Add Product Size </h4>
                 <div class="card-header-action">
-                    
-                </div>
-            </div>
-            <form action="{{ route('admin.product-gallery.store') }}" method="post" enctype="multipart/form-data">
-                @csrf
-                <div class="card-body">
                     <a href="{{ route('admin.product.index') }}" class="btn btn-primary">
                         back
-                     </a>
-                    <div>
-                        <div class="form-group">
-                            
-                            <label for="alt_text">Product Name</label>
-                            <p>{{ $data->name }}</p>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <label for="image">Image</label>
-                            <input type="file" name="image" class="form-control" id="image">
-                            <input type="hidden" name="product_id" value="{{ $data->id }}">
-                        </div>
+                    </a>
+                </div>
+            </div>
+            <form action="{{ route('admin.product-size.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="size">Size</label>
+                                <select name="size" class="form-control" id="size">
+                                    <option value="" selected>Select Size</option>
+                                    <option value="x">X</option>
+                                    <option value="m">M</option>
+                                    <option value="l">L</option>
+                                    {{-- @foreach ($sizes as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach --}}
+                                </select>
+                                <input type="hidden" name="product_id" value="{{ $data->id }}">
+                            </div>
 
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="alt_text">Price</label>
+                                <input type="text" name="price" class="form-control" id="alt_text">
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-8">
+
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label for="image" class="form-label"></label>
+
                             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
                         </div>
 
@@ -68,25 +76,23 @@
                         <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>Image</th>
-                                <th>Alt Text</th>
+                                <th>Product Size - Price</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            @foreach ($images as $item)
+                            @foreach ($size_data as $item)
                                 <tr class="m ">
                                     <td>{{ $loop->iteration }}</td>
-                                    <td><img src="{{ asset($item->image) }}" alt="" width="100px" height="100px">
+                                    <td> Size : {{ $item->size }} - Price: {{ $item->price }} 
                                     </td>
-                                    <td>{{ $item->alt_text }}</td>
-                                    <td><a href="{{ route('admin.product-gallery.destroy', $item->id) }}"
+                                    <td><a href="{{ route('admin.product-size.destroy', $item->id) }}"
                                             class="btn btn-danger delete-item"><i class="fas fa-trash"></i></a></td>
 
                                 </tr>
                             @endforeach
-                            @if(count($images) == 0)
+                            @if (count($size_data) == 0)
                                 <tr>
                                     <td colspan="4" class="text-center">No Data Found</td>
                                 </tr>

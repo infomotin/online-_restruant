@@ -30,9 +30,9 @@ class ProductDataTable extends DataTable
                         <i class="fa-solid fa-gear">More </i>
                       </button>
                       <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                        <a class="dropdown-item has-icon" href="#"><i class="far fa-heart"></i> Action</a>
-                        <a class="dropdown-item has-icon" href="#"><i class="far fa-file"></i> Another action</a>
-                        <a class="dropdown-item has-icon" href="'.route('admin.product-gallery.index',$query->id).'"><i class="far fa-clock"></i> Show Product</a>
+                        <a class="dropdown-item has-icon" href="'.route('admin.product-option.adding',$query->id).'"><i class="far fa-clock"></i> Adding Option</a>
+                        <a class="dropdown-item has-icon" href="'.route('admin.product-size.adding',$query->id).'"><i class="far fa-clock"></i> Adding Size</a>
+                        <a class="dropdown-item has-icon" href="'.route('admin.product-photog-allery.index',$query->id).'"><i class="far fa-clock"></i> Adding Image</a>
                       </div>
                     </div>';
                 return $edit . $delete . $more;
