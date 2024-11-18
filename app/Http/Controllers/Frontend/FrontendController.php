@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use App\Models\Admin\WhyChooseUs;
 use App\Models\Admin\Category;
+use App\Models\Admin\Product;
 
 class FrontendController extends Controller
 {
@@ -28,5 +29,11 @@ class FrontendController extends Controller
         $sectionTitle =  SectionTitle::whereIn('key', $key)->orderBy('key', 'desc')->pluck('value', 'key');
         // $sectionTitle = DB::table('section_titles')->whereIn('key', $key)->orderBy('key', 'desc')->pluck('value', 'key');
         return $sectionTitle;
+    }
+    //productDetails
+    public function productDetails($slug){
+        $product = Product::with('category')->with('gallery')->with('size')->with('option')->where('slug', $slug)->first();
+        // dd($product);
+        return view('frontend.pages.productDetails', compact('product'));
     }
 }

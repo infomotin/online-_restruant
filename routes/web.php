@@ -24,7 +24,6 @@ use App\Http\Controllers\Admin\AdminAuthController;
 // adminAuthController 
 Route::get('admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
 
-Route::get('/', [FrontendController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -38,3 +37,5 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 // require __DIR__.'/admin.php';
+Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::get('/product-details/{slug}', [FrontendController::class, 'productDetails'])->name('product.details');
