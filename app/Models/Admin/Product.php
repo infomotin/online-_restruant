@@ -17,15 +17,15 @@ class Product extends Model
 
     public function gallery(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(ProductGallery::class, 'id', 'product_id');
+        return $this->hasMany(ProductGallery::class,'product_id','id');
     }
 
     public function size(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(ProductSize::class, 'id', 'product_id');
+        return $this->hasMany(ProductSize::class, 'product_id','id');
     }
     public function option(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(ProductOption::class, 'id', 'product_id');
+        return $this->hasMany(ProductOption::class, 'product_id','id');
     }
 }

@@ -23,9 +23,6 @@
     <!--=============================
         MENU DETAILS START
     ==============================-->
-    @php
-                                    $images = \App\Models\Admin\ProductGallery::where('product_id', $product->id)->get();
-                                @endphp
     <section class="fp__menu_details mt_115 xs_mt_85 mb_95 xs_mb_65">
         <div class="container">
             <div class="row">
@@ -34,11 +31,12 @@
                         <div class="exzoom_img_box fp__menu_details_images">
                             <ul class='exzoom_img_ul'>
                                 <li><img class="zoom ing-fluid w-100" src="{{ asset('frontend/images/menu1.png') }}" alt="{{ $product->name }}"></li>
-                                
-                                @foreach ($images as $key => $image)
-                                    <li><img class="zoom ing-fluid w-100" src="{{ asset($image->image) }}" alt="{{ $product->id }}"></li>
+                                {{-- @php
+                                    $images = \App\Models\Admin\ProductGallery::where('product_id', $product->id)->get();
+                                @endphp --}}
+                                @foreach ($product->gallery as $key => $image)
+                                    <li><img class="zoom ing-fluid w-100" src="{{ asset($image->image) }}" alt="{{ $product->name }}"></li>
                                 @endforeach
-                                
                             </ul>
                         </div>
                         <div class="exzoom_nav"></div>
@@ -78,7 +76,7 @@
                                 $sizes = \App\Models\Admin\ProductSize::where('product_id', $product->id)->get();
                                 $optinos = \App\Models\Admin\ProductOption::where('product_id', $product->id)->get();
                             @endphp
-                            @foreach ($sizes as $size)
+                            @foreach ($product->size as $size)
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="{{ $size->id }}" id="large" >
                                 <label class="form-check-label" for="{{ $size->id }}">
@@ -92,7 +90,7 @@
 
                         <div class="details_extra_item">
                             <h5>select option <span>(optional)</span></h5>
-                            @foreach ($optinos as $optino)
+                            @foreach ($product->option as $optino)
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="{{ $optino->id }}" id="{{ $optino->id }}">
                                 <label class="form-check-label" for="{{ $optino->id }}">
