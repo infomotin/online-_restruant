@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -10,10 +9,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\ProductOptionController;
-
-
-
-
+use App\Http\Controllers\Admin\SetingController;
 // admin dashboard routes
 Route::group(['prefix' => 'admin','as' => 'admin.'], function () {
         // Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
@@ -47,4 +43,10 @@ Route::group(['prefix' => 'admin','as' => 'admin.'], function () {
         // productoption 
         Route::get('product-option/{id}', [ProductOptionController::class, 'index'])->name('product-option.adding');
         Route::resource('product-option', ProductOptionController::class);
+        // end productoption
+
+        // settingController 
+        Route::get('/setting', [SetingController::class, 'index'])->name('setting.index');
+        Route::post('/genarel-setting', [SetingController::class, 'updateGenalSetting'])->name('update-seting.store');
+        // end settingController
 });                      
