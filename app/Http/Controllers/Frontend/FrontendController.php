@@ -33,7 +33,7 @@ class FrontendController extends Controller
     //productDetails
     public function productDetails($slug){
         $product = Product::with(['category', 'size', 'option', 'gallery'])->where('status', 1)->where('slug', $slug)->first();
-        // dd($product);
-        return view('frontend.pages.productDetails', compact('product'));
+        $relatedProducts = Product::with(['category', 'size', 'option', 'gallery'])->where('status', 1)->where('category_id', $product->category_id)->where('id', '!=', $product->id)->limit(4)->get();
+        return view('frontend.pages.productDetails', compact('product', 'relatedProducts'));
     }
 }
