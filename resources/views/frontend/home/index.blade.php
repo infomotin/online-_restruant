@@ -25,7 +25,10 @@
     <!--=============================
         OFFER ITEM END
     ==============================-->
-
+    
+    <!-- CART POPUT START -->
+        @include('frontend.home.components.cart-popup')
+    <!-- CART POPUT END -->
 
     <!--=============================
         MENU ITEM START

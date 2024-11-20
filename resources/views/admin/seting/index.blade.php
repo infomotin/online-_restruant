@@ -56,6 +56,11 @@
                                                     placeholder="App Name" value="{{ config('settings.app_name') }}">
                                             </div>
                                             <div class="form-group">
+                                                <label for="example-text-input" class="col-2 col-form-label ">Simbol</label>
+                                                <input type="text" name="app_simbol" class="form-control"
+                                                    placeholder="App Simbol" value="{{ config('settings.app_simbol') }}">
+                                            </div>
+                                            <div class="form-group">
                                                 <label for="example-text-input" class="col-2 col-form-label">App Default
                                                     Currency</label>
                                                 <select name="app_default_currency" id=""
@@ -80,6 +85,7 @@
                                                     <div class="form-group">
                                                         <label for="example-text-input" class="col-2 col-form-label">
                                                             Currency Position</label>
+                                                           
                                                         <select name="currency_position" id=""
                                                             class="form-control select2">
                                                             <option @selected(config('settings.currency_position')==='left') value="left">Left</option>
@@ -110,6 +116,8 @@
                                                             <option @selected(config('settings.app_default_colour')==='green') value="green">Green</option>
                                                         </select>
                                                     </div>
+
+                                                    
                                                 </div>
 
                                                 <button type="submit" class="btn btn-primary">Save </button>

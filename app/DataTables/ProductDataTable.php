@@ -40,7 +40,13 @@ class ProductDataTable extends DataTable
             ->addColumn('thumbnail_image',function($query){
                 return '<img width="50px" src="'.asset($query->thumbnail_image).'">';
             })
-            ->rawColumns(['thumbnail_image','action'])
+            ->addColumn('price',function($query){
+                return getCurrencySymbolPosition($query->price);
+            })
+            ->addColumn('offer_price',function($query){
+                return getCurrencySymbolPosition($query->offer_price);
+            })
+            ->rawColumns(['thumbnail_image','action','price','offer_price'])
             ->setRowId('id');
     }
 

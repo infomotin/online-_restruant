@@ -61,14 +61,14 @@
                             <a class="title" href="{{ route('product.details', $product->slug) }}">{{ $product->name }}</a>
                             <h5 class="price">
                                 @if ($product->offer_price > 0)
-                                    ${{ $product->offer_price }}
-                                    <del>${{ $product->price }}</del>
+                                    {{ getCurrencySymbolPosition($product->offer_price) }}
+                                    <del>{{ getCurrencySymbolPosition($product->price) }}</del>
                                 @else
-                                    ${{ $product->price }}
+                                    {{ getCurrencySymbolPosition($product->price) }}
                                 @endif
                             </h5>
                             <ul class="flex-wrap d-flex justify-content-center">
-                                <li><a href="#" data-bs-toggle="modal" data-bs-target="#cartModal"><i
+                                <li><a href="javascript:;" onclick="loadProductModal('{{ $product->id }}')"><i
                                             class="fas fa-shopping-basket"></i></a></li>
                                 <li><a href="#"><i class="fal fa-heart"></i></a></li>
                                 <li><a href="#"><i class="far fa-eye"></i></a></li>

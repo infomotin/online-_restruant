@@ -39,3 +39,4 @@ require __DIR__.'/auth.php';
 // require __DIR__.'/admin.php';
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/product-details/{slug}', [FrontendController::class, 'productDetails'])->name('product.details');
+Route::get('/product-details-modal/{id}', [FrontendController::class, 'productDetailsModal'])->name('product.details.modal');

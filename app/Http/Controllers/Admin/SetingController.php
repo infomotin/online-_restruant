@@ -27,6 +27,8 @@ class SetingController extends Controller
             'currency_position' => 'required',
             'app_default_language' => 'required',
             'app_default_colour' => 'required',
+            'app_simbol' => 'required',
+            
         ]);
         foreach ($validate as $key => $value) {
             Setting::updateOrCreate(

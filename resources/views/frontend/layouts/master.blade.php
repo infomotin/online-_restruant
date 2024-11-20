@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="{{asset('frontend/css/venobox.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/animate.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/jquery.exzoom.css')}}">
-
     <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/responsive.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/toastr.min.css')}}">
@@ -40,6 +39,7 @@
     @yield('content')
     @include('frontend.layouts.footer')
     @include('frontend.home.components.scroll')
+    @include('frontend.layouts.global-script')
     
 
     
@@ -87,6 +87,9 @@
                 @endforeach
             @endif
         </script>
+        {{-- //modal function Calling  --}}
+        {{-- main custom js  --}}
+        
 </body>
 
 </html>

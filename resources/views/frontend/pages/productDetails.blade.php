@@ -2,7 +2,7 @@
 @section('content')
     <!--=============================
                 BREADCRUMB START
-            ==============================-->
+    ==============================-->
     <section class="fp__breadcrumb" style="background: url({{ asset('frontend/images/banner_bg.jpg') }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
@@ -61,12 +61,11 @@
                         </p>
                         <h3 class="price">
                             @if ($product->offer_price > 0)
-                                ${{ $product->offer_price }}
-                                <del>${{ $product->price }}</del>
+                               {{ getCurrencySymbolPosition($product->offer_price) }}
+                                <del>{{ getCurrencySymbolPosition($product->price) }}</del>
                             @else
-                                ${{ $product->price }}
+                               {{ getCurrencySymbolPosition($product->price) }}
                             @endif
-
                         </h3>
                         <p class="short_description">{{ $product->short_description }}</p>
                         @if ($product->size()->exists())
@@ -113,7 +112,7 @@
                             </div>
                         </div>
                         <ul class="details_button_area d-flex flex-wrap">
-                            <li><a class="common_btn" href="#">add to cart</a></li>
+                            <li><a class="common_btn" href="#" data-bs-toggle="modal" data-bs-target="#cartModal" >add to cart</a></li>
                             <li><a class="wishlist" href="#"><i class="far fa-heart"></i></a></li>
                         </ul>
                     </div>

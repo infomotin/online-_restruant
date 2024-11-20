@@ -25,3 +25,14 @@ if(!function_exists('generateUniqueSlug')) {
     }
     
 }
+
+if(!function_exists('getCurrencySymbolPosition ')){
+    function getCurrencySymbolPosition($price){
+        // dd($price);
+        if(config('settings.currency_position' === 'left')){
+            return config('settings.app_simbol').$price;
+        }else{
+            return $price.config('settings.app_simbol');
+        }
+    }
+}
