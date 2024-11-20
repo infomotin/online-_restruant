@@ -7,6 +7,7 @@ use App\Models\Admin\Setting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Services\SettingService;
 
 class SetingController extends Controller
 {
@@ -33,6 +34,8 @@ class SetingController extends Controller
                 ['value' => $value]
             );
         }
+        $settingsService = app(SettingService::class);
+        $settingsService->clearCachedSettings();
         toastr()->success('Updated Successfully');
         return redirect()->back();
     }
