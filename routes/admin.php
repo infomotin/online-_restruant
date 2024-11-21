@@ -49,4 +49,7 @@ Route::group(['prefix' => 'admin','as' => 'admin.'], function () {
         Route::get('/setting', [SetingController::class, 'index'])->name('setting.index');
         Route::post('/genarel-setting', [SetingController::class, 'updateGenalSetting'])->name('update-seting.store');
         // end settingController
+
+        // add to cart controller 
+        
 });                      

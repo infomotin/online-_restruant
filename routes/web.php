@@ -4,7 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Admin\AdminAuthController;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +42,5 @@ require __DIR__.'/auth.php';
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/product-details/{slug}', [FrontendController::class, 'productDetails'])->name('product.details');
 Route::get('/product-details-modal/{id}', [FrontendController::class, 'productDetailsModal'])->name('product.details.modal');
+// CartContorller 
+Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('add.to.cart');
