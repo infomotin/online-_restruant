@@ -15,29 +15,33 @@ class CartController extends Controller
         $product = Product::with(['category', 'size', 'option', 'gallery'])->findOrFail($request->product_id);
         $product_size = $product->size->where('id', $request->product_size)->first();
         $product_options = $product->option->whereIn('id', $request->product_option);
-        
+
         // dd($product_options);
         $options = [
-            'product_size' => [
-                'id' =>  $product_size->id,
-                'name' => $product_size->size,
-                'price' =>  $product_size->price,
-                
-            ],
+            'product_size' => [],
             'product_option' => [],
-            'product_info' => [ 
+            'product_info' => [
                 'image' => $product->thumbnail_image,
                 'slug' => $product->slug
             ]
         ];
-        foreach ($product_options as $option) {
-            $options['product_option'][] = [
-                'id' =>  $option->id,
-                'name' => $option->bundle_name,
-                'price' =>  $option->price,
-                
+        if ($product_size !== null) {
+            $options['product_size'] = [
+                'id' =>  $product_size?->id,
+                'name' => $product_size?->size,
+                'price' =>  $product_size?->price
             ];
         }
+        if($product_options !== null){
+            foreach ($product_options as $option) {
+                $options['product_option'][] = [
+                    'id' =>  $option?->id,
+                    'name' => $option?->bundle_name,
+                    'price' =>  $option?->price,
+                ];
+            }
+        }
+        
         // dd($options);
         // 'id' => '293ad', 'name' => 'Product 1', 'qty' => 1, 'price' => 9.99, 'weight' => 550, 'options' => ['size' => 'large']
         Cart::add([
@@ -48,8 +52,7 @@ class CartController extends Controller
             'weight' => 0,
             'options' => $options
         ]);
-        return response()->json(['status' => 'success','success' => 'Product Added To Cart'],200);
-
+        return response()->json(['status' => 'success', 'success' => 'Product Added To Cart'], 200);
     }
 
 
