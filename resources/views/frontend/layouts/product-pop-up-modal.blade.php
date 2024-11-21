@@ -38,7 +38,7 @@
                             <input class="form-check-input" type="radio" name="product-size" data-price="{{ $size->price }}"
                                 id="size-{{ $size->id }}">
                             <label class="form-check-label" for="size-{{ $size->id }}">
-                                {{ $size->size }} <span>+ ${{ $size->price }}</span>
+                                {{ $size->size }} <span>+ ${{ getCurrencySymbolPosition($size->price) }}</span>
                             </label>
                         </div>
                     @endforeach
@@ -50,13 +50,12 @@
         @if ($product->option()->exists())
             <div class="details_extra_item">
                 <h5>select option <span>(optional)</span></h5>
-                @foreach ($product->option as $optino)
+                @foreach ($product->option as $options)
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="{{ $optino->id }}"
-                            id="{{ $optino->id }}" name="product-option[]" data-option="{{ $optino->price }}">
-                        <label class="form-check-label" for="{{ $optino->id }}">
-                            {{ $optino->bundle_name }} <span>+ ${{ $optino->price }}</span>
-                        </label>
+                        <input class="form-check-input" type="checkbox" name="product-option[]" data-price="{{ $options->price }}" value="{{ $options->id }}" id="option-{{ $options->id }}">
+        <label class="form-check-label" for="option-{{ $options->id }}">
+            {{ $options->name }} <span>+ {{ getCurrencySymbolPosition($options->price) }}</span>
+        </label>
                     </div>
                 @endforeach
             </div>
@@ -69,11 +68,17 @@
             <h5>select quentity</h5>
             <div class="quentity_btn_area d-flex flex-wrapa align-items-center">
                 <div class="quentity_btn">
-                    <button class="btn btn-danger"><i class="fal fa-minus"></i></button>
-                    <input type="text" placeholder="1">
-                    <button class="btn btn-success"><i class="fal fa-plus"></i></button>
+                    <button class="btn btn-danger decrement"><i class="fal fa-minus"></i></button>
+                    <input class="bg-slate-500" type="text" name="quentity" id="quentity" placeholder="1" value="1" readonly>
+                    <button class="btn btn-success increment"><i class="fal fa-plus"></i></button>
                 </div>
-                <h3>$320.00</h3>
+               
+                    @if ($product->offer_price > 0)
+                    <h3 id="total_price">{{ getCurrencySymbolPosition($product->offer_price) }} </h3>
+                    @else
+                        <h3 id="total_price">{{ getCurrencySymbolPosition($product->price) }}</h3>
+                    @endif
+                
             </div>
         </div>
 
@@ -90,14 +95,35 @@
     $(document).ready(function() {
         console.log('Working');
         $('input[name="product-size"]').on('change', function() {
-            // func dec 
             updateTotalPrice();
+        })
+        $('input[name="product-option[]"]').on('change', function() {
+            updateTotalPrice();
+        })
+        // button press event handler 
+        $('.increment').on('click', function(e) {
+            e.preventDefault()
+            let quentity = $('#quentity')
+            let curQuantity = parseInt(quentity.val());
+            quentity.val(curQuantity + 1);
+            updateTotalPrice();
+        })
+        $('.decrement').on('click', function(e) {
+            e.preventDefault()
+            let quentity = $('#quentity')
+            let curQuantity = parseInt(quentity.val());
+            if (curQuantity > 1) {
+                quentity.val(curQuantity - 1);
+                updateTotalPrice();
+            }
+            
         })
         // implements func 
         function updateTotalPrice(){
             let basePrice = parseFloat($('input[name="base_price"]').val());
             let selectedSizePrice = 0;
             let selectOptionPrice =0;
+            let quantity = parseFloat($('#quentity').val());
             //get html element data value 
             let selectedSizes = $('input[name="product-size"]:checked');
             if(selectedSizes.length > 0){
@@ -109,8 +135,13 @@
             $(selectedOptions).each(function(){
                 selectOptionPrice += parseFloat($(this).data("price"));
             })
+
+            let totalPrice =(basePrice + selectedSizePrice + selectOptionPrice) * quantity;
+            $('#total_price').text("{{ config('settings.app_simbol') }}" + parseFloat(totalPrice));
+            console.log(totalPrice);
             console.log(selectedSizePrice);
             console.log(selectOptionPrice);
+            console.log(quantity);
             
         }
     })
