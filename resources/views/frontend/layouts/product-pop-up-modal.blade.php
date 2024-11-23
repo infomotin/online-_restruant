@@ -170,6 +170,7 @@
                     $('.modal_cart_button').html( '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  Loading...');
                 },
                 success: function(response) {
+                    UpdateCartSidebar();
                     console.log(response);
                     toastr.success(response.message);
                 },

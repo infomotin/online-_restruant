@@ -59,7 +59,7 @@
                     </div>
                 </li>
                 <li>
-                    <a class="cart_icon"><i class="fas fa-shopping-basket"></i> <span>5</span></a>
+                    <a class="cart_icon"><i class="fas fa-shopping-basket"></i> <span>{{ Cart::count() }}</span></a>
                 </li>
                 <li>
                     <a href="dashboard.html"><i class="fas fa-user"></i></a>
@@ -76,77 +76,40 @@
 <div class="fp__menu_cart_area">
     <div class="fp__menu_cart_boody">
         <div class="fp__menu_cart_header">
-            <h5>total item (05)</h5>
+            <h5>total item ({{ Cart::count('id') }})</h5>
             <span class="close_cart"><i class="fal fa-times"></i></span>
         </div>
         <ul>
-            <li>
-                <div class="menu_cart_img">
-                    <img src="{{ asset('frontend/images/menu8.png') }}" alt="menu" class="img-fluid w-100">
-                </div>
-                <div class="menu_cart_text">
-                    <a class="title" href="#">Hyderabadi Biryani </a>
-                    <p class="size">small</p>
-                    <span class="extra">coca-cola</span>
-                    <span class="extra">7up</span>
-                    <p class="price">$99.00 <del>$110.00</del></p>
-                </div>
-                <span class="del_icon"><i class="fal fa-times"></i></span>
-            </li>
-            <li>
-                <div class="menu_cart_img">
-                    <img src="{{ asset('frontend/images/menu4.png') }}" alt="menu" class="img-fluid w-100">
-                </div>
-                <div class="menu_cart_text">
-                    <a class="title" href="#">Chicken Masalas</a>
-                    <p class="size">medium</p>
-                    <span class="extra">7up</span>
-                    <p class="price">$70.00</p>
-                </div>
-                <span class="del_icon"><i class="fal fa-times"></i></span>
-            </li>
-            <li>
-                <div class="menu_cart_img">
-                    <img src="{{ asset('frontend/images/menu5.png') }}" alt="menu" class="img-fluid w-100">
-                </div>
-                <div class="menu_cart_text">
-                    <a class="title" href="#">Competently Supply Customized Initiatives</a>
-                    <p class="size">large</p>
-                    <span class="extra">coca-cola</span>
-                    <span class="extra">7up</span>
-                    <p class="price">$120.00 <del>$150.00</del></p>
-                </div>
-                <span class="del_icon"><i class="fal fa-times"></i></span>
-            </li>
-            <li>
-                <div class="menu_cart_img">
-                    <img src="{{ asset('frontend/images/menu6.png') }}" alt="menu" class="img-fluid w-100">
-                </div>
-                <div class="menu_cart_text">
-                    <a class="title" href="#">Hyderabadi Biryani</a>
-                    <p class="size">small</p>
-                    <span class="extra">7up</span>
-                    <p class="price">$59.00</p>
-                </div>
-                <span class="del_icon"><i class="fal fa-times"></i></span>
-            </li>
-            <li>
-                <div class="menu_cart_img">
-                    <img src="{{ asset('frontend/images/menu1.png') }}" alt="menu" class="img-fluid w-100">
-                </div>
-                <div class="menu_cart_text">
-                    <a class="title" href="#">Competently Supply</a>
-                    <p class="size">medium</p>
-                    <span class="extra">coca-cola</span>
-                    <span class="extra">7up</span>
-                    <p class="price">$99.00 <del>$110.00</del></p>
-                </div>
-                <span class="del_icon"><i class="fal fa-times"></i></span>
-            </li>
+
+            @foreach (Cart::content() as $item)
+                <li>
+                    <div class="menu_cart_img">
+                        <img src="{{ asset($item->options->product_info['image']) }}" alt="menu"
+                            class="img-fluid w-100">
+                    </div>
+                    <div class="menu_cart_text">
+                        <a class="title"
+                            href="{{ route('product.details', $item->options->product_info['slug']) }}">{{ $item->name }}
+                        </a>
+                        <p class="qty">Qty:{{ $item->qty }}</p>
+                        <p class="size"> Size:{{ @$item->options->product_size['name'] }}</p>
+
+                        @foreach ($item->options->product_option as $option)
+                            <p class="extra">Extra:{{ $option['name'] }}</p>
+                        @endforeach
+
+                        <p class="price">{{ getCurrencySymbolPosition($item->price) }}</p>
+
+                    </div>
+                    <span class="del_icon"><i class="fal fa-times"></i></span>
+                </li>
+            @endforeach
+
+
         </ul>
-        <p class="subtotal">sub total <span>$1220.00</span></p>
+        {{-- <p class="subtotal">sub total <span>$1220.00</span></p>
         <a class="cart_view" href="cart_view.html"> view cart</a>
-        <a class="checkout" href="check_out.html">checkout</a>
+        <a class="checkout" href="check_out.html">checkout</a> --}}
     </div>
 </div>
 

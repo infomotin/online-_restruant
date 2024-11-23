@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Collection;
 
 class CartController extends Controller
 {
@@ -60,6 +61,12 @@ class CartController extends Controller
     }
     }
 
+    //getFormCart
+    public function getFormCart()
+    {
+        $cart = Cart::content();
+        return $cart;
+    }
 
 
     /**

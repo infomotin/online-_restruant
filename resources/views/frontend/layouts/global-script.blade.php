@@ -24,4 +24,23 @@
         });
         
     }
+    function UpdateCartSidebar(){
+        console.log('ok');
+        $.ajax({
+            url: '{{ route("get.form.cart") }}',
+            method: 'GET',
+            beforeSend: function () {
+                
+            },
+            success: function (response) {
+                
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            },
+            complete: function () {
+               
+            }
+        });
+    }
 </script>
