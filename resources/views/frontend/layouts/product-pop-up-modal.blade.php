@@ -47,7 +47,6 @@
             @endif
         </div>
 
-
         @if ($product->option()->exists())
             <div class="details_extra_item">
                 <h5>select option <span>(optional)</span></h5>
@@ -63,9 +62,6 @@
                 @endforeach
             </div>
         @endif
-
-
-
 
         <div class="details_quentity">
             <h5>select quentity</h5>
@@ -88,7 +84,7 @@
 
         <ul class="details_button_area d-flex flex-wrap">
 
-            <li><button type="submit" class="common_btn">add to cart</button></li>
+            <li><button type="submit" class="common_btn modal_cart_button">add to cart</button></li>
         </ul>
     </div>
 
@@ -150,22 +146,43 @@
         }
         //model add to cart function 
         $('#modal_add_to_cart_form').on('submit', function(e) {
-            console.log($(this).attr('action'))
             e.preventDefault();
-            // temporaryfromdata
+            // validations FormData 
+            let selectedSizes = $('input[name="product_size"]')
+
+            if (selectedSizes.length > 0) {
+                if ($('input[name="product_size"]:checked').val() === undefined) {
+                    alert('Please select size');
+                    console.log('Please select size');
+                    return;
+                }
+            }
+
             let formData = $(this).serialize();
             console.log(formData);
 
             $.ajax({
-                method: $(this).attr('method'),
-                url: $(this).attr('action'),
+                method: 'POST',
+                url: '{{ route('add.to.cart') }}',
                 data: formData,
+                beforeSend: function() {
+                    $('.modal_cart_button').attr('disabled', 'true');
+                    $('.modal_cart_button').html( '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  Loading...');
+                },
                 success: function(response) {
                     console.log(response);
+                    toastr.success(response.message);
                 },
                 error: function(xhr, status, error) {
+                    // let error = JSON.parse(xhr.responseText);
+                    // toastr.error(response.message);
                     console.error(error);
                 },
+                complete: function() {
+                    
+                    $('.modal_cart_button').html('add to cart');
+                    $('.modal_cart_button').attr('disabled', 'false');
+                }
             });
         });
     })

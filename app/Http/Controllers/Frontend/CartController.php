@@ -10,7 +10,9 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 class CartController extends Controller
 {
     public function addToCart(Request $request)
-    {
+    {  
+        // dd($request->all());
+        try {
         // dd($request->all());
         $product = Product::with(['category', 'size', 'option', 'gallery'])->findOrFail($request->product_id);
         $product_size = $product->size->where('id', $request->product_size)->first();
@@ -32,7 +34,7 @@ class CartController extends Controller
                 'price' =>  $product_size?->price
             ];
         }
-        if($product_options !== null){
+       
             foreach ($product_options as $option) {
                 $options['product_option'][] = [
                     'id' =>  $option?->id,
@@ -40,7 +42,7 @@ class CartController extends Controller
                     'price' =>  $option?->price,
                 ];
             }
-        }
+        
         
         // dd($options);
         // 'id' => '293ad', 'name' => 'Product 1', 'qty' => 1, 'price' => 9.99, 'weight' => 550, 'options' => ['size' => 'large']
@@ -52,7 +54,10 @@ class CartController extends Controller
             'weight' => 0,
             'options' => $options
         ]);
-        return response()->json(['status' => 'success', 'success' => 'Product Added To Cart'], 200);
+        return response(['status' => 'success', 'success' => 'Product Added To Cart'], 200);
+    } catch (\Exception $e) {
+        return response(['status' => 'error', 'error' => $e->getMessage()], 400);
+    }
     }
 
 
