@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Collection;
+use Illuminate\View\View;
 
 class CartController extends Controller
 {
     public function addToCart(Request $request)
     {  
+        // Cart::destroy();
         // dd($request->all());
         try {
         // dd($request->all());
@@ -64,8 +66,9 @@ class CartController extends Controller
     //getFormCart
     public function getFormCart()
     {
+        
         $cart = Cart::content();
-        return $cart;
+        return view('frontend.layouts.sidebar-cart-item', compact('cart'))->render();
     }
 
 

@@ -59,7 +59,7 @@
                     </div>
                 </li>
                 <li>
-                    <a class="cart_icon"><i class="fas fa-shopping-basket"></i> <span>{{ Cart::count() }}</span></a>
+                    <a class="cart_icon"><i class="fas fa-shopping-basket"></i> <span class="cart_count">{{ count(Cart::content()) }}</span></a>
                 </li>
                 <li>
                     <a href="dashboard.html"><i class="fas fa-user"></i></a>
@@ -76,10 +76,10 @@
 <div class="fp__menu_cart_area">
     <div class="fp__menu_cart_boody">
         <div class="fp__menu_cart_header">
-            <h5>total item ({{ Cart::count('id') }})</h5>
+            <h5 class="menu_cart_count" id="menu_cart_count">total item ({{ count(Cart::content()) }})</h5>
             <span class="close_cart"><i class="fal fa-times"></i></span>
         </div>
-        <ul>
+        <ul class="cart_container">
 
             @foreach (Cart::content() as $item)
                 <li>
@@ -92,14 +92,11 @@
                             href="{{ route('product.details', $item->options->product_info['slug']) }}">{{ $item->name }}
                         </a>
                         <p class="qty">Qty:{{ $item->qty }}</p>
-                        <p class="size"> Size:{{ @$item->options->product_size['name'] }}</p>
-
+                        <p class="size"> Size:{{ @$item->options->product_size['name'] }} - Price: {{ @$item->options->product_size['price'] ? @$item->options->product_size['price'] : ''}}</p>
                         @foreach ($item->options->product_option as $option)
-                            <p class="extra">Extra:{{ $option['name'] }}</p>
+                            <p class="extra">Extra:{{ $option['name'] }} - Price: {{ $option['price'] }}</p>
                         @endforeach
-
                         <p class="price">{{ getCurrencySymbolPosition($item->price) }}</p>
-
                     </div>
                     <span class="del_icon"><i class="fal fa-times"></i></span>
                 </li>
@@ -107,9 +104,9 @@
 
 
         </ul>
-        {{-- <p class="subtotal">sub total <span>$1220.00</span></p>
+        <p class="subtotal">sub total <span class="cart_total">{{ getCurrencySymbolPosition(cartTotal()) }}</span></p>
         <a class="cart_view" href="cart_view.html"> view cart</a>
-        <a class="checkout" href="check_out.html">checkout</a> --}}
+        <a class="checkout" href="check_out.html">checkout</a>
     </div>
 </div>
 

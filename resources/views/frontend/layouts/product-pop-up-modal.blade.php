@@ -94,6 +94,7 @@
 <script>
     $(document).ready(function() {
         console.log('Working');
+        // Cart::destroy();
         $('input[name="product_size"]').on('change', function() {
             updateTotalPrice();
         })
@@ -146,6 +147,7 @@
         }
         //model add to cart function 
         $('#modal_add_to_cart_form').on('submit', function(e) {
+            
             e.preventDefault();
             // validations FormData 
             let selectedSizes = $('input[name="product_size"]')
@@ -170,9 +172,10 @@
                     $('.modal_cart_button').html( '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  Loading...');
                 },
                 success: function(response) {
-                    UpdateCartSidebar();
+                   
                     console.log(response);
                     toastr.success(response.message);
+                    UpdateCartSidebar();
                 },
                 error: function(xhr, status, error) {
                     // let error = JSON.parse(xhr.responseText);

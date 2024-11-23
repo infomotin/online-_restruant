@@ -1,6 +1,8 @@
 <?php
 
 use function PHPUnit\Framework\throwException;
+
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Str;
 if(!function_exists('generateUniqueSlug')) {
     // function dd($data) {
@@ -34,5 +36,24 @@ if(!function_exists('getCurrencySymbolPosition ')){
         }else{
             return $price.config('settings.app_simbol');
         }
+    }
+}
+
+// calculetive cart total 
+
+if(!function_exists('cartTotal')){
+    function cartTotal(){
+        // contain total value for a variable name 
+        $total = 0;
+        foreach(Cart::content() as $item){
+           $productPrice = $item->price;
+           $sizePrice = $item->options?->product_size['price'] ?? 0;
+           $optionsPrice = 0;
+           foreach($item->options?->product_option as $option){
+               $optionsPrice += $option['price'];
+           }
+           $total += ($productPrice + $sizePrice + $optionsPrice) * $item->qty;
+        }
+        return $total;
     }
 }
